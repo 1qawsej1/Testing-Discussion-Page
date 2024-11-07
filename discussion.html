@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discussion Page</title>
+  <style>
+    /* Basic Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    h1 {
+      color: #333;
+      margin-top: 20px;
+    }
+    
+    /* Discussion Container */
+    .discussion-container {
+      width: 80%;
+      max-width: 800px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Styling */
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comment-form input, .comment-form textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 100%;
+      resize: vertical;
+    }
+
+    .comment-form button {
+      padding: 10px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+
+    /* Comments Section */
+    .comments-section {
+      margin-top: 20px;
+    }
+
+    .comment {
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background-color: #fafafa;
+    }
+
+    .comment h4 {
+      margin: 0;
+      color: #3498db;
+    }
+
+    .comment p {
+      margin: 5px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Discussion Page</h1>
+
+  <div class="discussion-container">
+    <!-- Comment Form -->
+    <div class="comment-form">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <textarea id="comment" rows="4" placeholder="Write your comment here..." required></textarea>
+      <button onclick="postComment()">Post Comment</button>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section" id="comments-section">
+      <h2>Comments</h2>
+      <!-- Comments will be displayed here dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // Function to post a comment
+    function postComment() {
+      const nameInput = document.getElementById('name');
+      const commentInput = document.getElementById('comment');
+      const commentsSection = document.getElementById('comments-section');
+
+      // Get the values from inputs
+      const name = nameInput.value.trim();
+      const comment = commentInput.value.trim();
+
+      // Check if both fields are filled
+      if (name && comment) {
+        // Create a new comment element
+        const commentElement = document.createElement('div');
+        commentElement.classList.add('comment');
+
+        // Set the inner HTML with user input
+        commentElement.innerHTML = `
+          <h4>${name}</h4>
+          <p>${comment}</p>
+        `;
+
+        // Append the new comment to the comments section
+        commentsSection.appendChild(commentElement);
+
+        // Clear the form inputs
+        nameInput.value = '';
+        commentInput.value = '';
+      } else {
+        alert('Please enter both name and comment.');
+      }
+    }
+  </script>
+
+</body>
+</html>
