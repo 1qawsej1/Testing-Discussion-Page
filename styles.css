@@ -43,12 +43,10 @@ main {
     margin-bottom: 20px;
 }
 
-#comment-input {
+#username-input, #comment-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: vertical;
-    min-height: 60px;
     margin-bottom: 10px;
 }
 
@@ -73,11 +71,15 @@ main {
     background-color: #fafafa;
 }
 
-.comment .reply-btn {
+.comment .reply-btn, .comment .delete-btn {
     color: #4CAF50;
     cursor: pointer;
     font-size: 0.9em;
     margin-top: 5px;
+}
+
+.comment .delete-btn {
+    color: #ff4d4d;
 }
 
 .comment .reply-form {
@@ -89,3 +91,4 @@ main {
     margin-top: 10px;
     padding-left: 20px;
 }
+
