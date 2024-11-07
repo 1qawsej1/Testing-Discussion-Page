@@ -1,23 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
     const commentForm = document.getElementById("comment-form");
     const commentInput = document.getElementById("comment-input");
+    const usernameInput = document.getElementById("username-input");
     const commentsContainer = document.getElementById("comments-container");
 
     commentForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        const username = usernameInput.value.trim();
         const commentText = commentInput.value.trim();
-        if (commentText) {
-            addComment(commentText);
+
+        if (username && commentText) {
+            addComment(username, commentText);
+            usernameInput.value = "";
             commentInput.value = "";
+        } else {
+            alert("Please enter both username and comment.");
         }
     });
 
-    function addComment(text, isReply = false) {
+    function addComment(username, text, isReply = false) {
         const commentDiv = document.createElement("div");
         commentDiv.classList.add("comment");
 
         const content = document.createElement("p");
-        content.textContent = text;
+        content.textContent = `${username}: ${text}`;
+
+        const deleteButton = document.createElement("span");
+        deleteButton.classList.add("delete-btn");
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            deleteComment(commentDiv);
+        });
 
         const replyButton = document.createElement("span");
         replyButton.classList.add("reply-btn");
@@ -28,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         commentDiv.appendChild(content);
         commentDiv.appendChild(replyButton);
+        commentDiv.appendChild(deleteButton);
 
         if (!isReply) {
             commentsContainer.appendChild(commentDiv);
@@ -59,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const replyText = replyInput.value.trim();
             if (replyText) {
-                const replyContainer = addComment(replyText, true);
+                const replyContainer = addComment("Replying", replyText, true);
                 commentDiv.querySelector(".replies")?.appendChild(replyContainer);
                 replyInput.value = "";
                 replyForm.style.display = "none";
@@ -72,5 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function toggleReplyForm(commentDiv) {
         const replyForm = commentDiv.querySelector(".reply-form");
         replyForm.style.display = replyForm.style.display === "none" || !replyForm.style.display ? "block" : "none";
+    }
+
+    function deleteComment(commentDiv) {
+        commentDiv.remove();
     }
 });
